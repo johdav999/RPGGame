@@ -1,0 +1,31 @@
+name: Windows desktop
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test asset tools without paid API requests
+        run: python -m unittest discover -s tests -v
+      - name: Cache verified engine dependencies
+        uses: actions/cache@v4
+        with:
+          path: external/WebEngine/build/dependencies/windows
+          key: windows-engine-${{ hashFiles('external/WebEngine/tools/setup_windows.py') }}
+      - name: Install pinned engine dependencies
+        run: ./scripts/setup-windows.ps1
+      - name: Build Windows x64 game
+        run: ./scripts/build-windows.ps1
+      - name: Check executable entry point
+        run: ./build/windows/bin/Release/rpg_game.exe --help
