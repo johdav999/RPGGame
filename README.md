@@ -3,8 +3,8 @@
 A C++20 foundation for a **3D RPG on Windows x64**, using
 [WebEngine](https://github.com/johdav999/WebEngine)'s native desktop runtime and
 renderer. The engine is a pinned Git submodule, not a copied renderer or browser
-wrapper. Direct D3D12 is the default; `--backend auto` selects the engine's Dawn
-Windows fallback chain. Game rules belong in this repo.
+wrapper. The game builds the engine's direct D3D12 renderer. Game rules belong
+in this repo.
 
 The starter displays a lit 3D clearing with ground, a player placeholder and a
 landmark. Escape quits and F11 toggles fullscreen. Movement, combat, quests,
@@ -21,12 +21,12 @@ cd RPGGame
 ./scripts/setup-windows.ps1
 ./scripts/build-windows.ps1
 ./build/windows/bin/Release/rpg_game.exe
-# Optional engine fallback:
-./build/windows/bin/Release/rpg_game.exe --backend auto
 ```
 
 Setup installs the engine's hash-verified SDL3, Dawn and DirectX Shader Compiler
-packages locally. CMake also fetches the engine's pinned physics/navigation
+packages locally; the engine setup includes Dawn, but this game builds only
+direct D3D12. The pinned engine's optional Dawn renderer currently hits MSVC's
+shader string-literal size limit. CMake also fetches pinned physics/navigation
 dependencies. The first setup needs internet access. Build outputs and SDKs are
 ignored. `CMakeUserPresets.json` is available for local toolchain overrides.
 The build stages SDL and DXC DLLs and assets beside the executable. This is a

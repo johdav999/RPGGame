@@ -12,15 +12,14 @@ int main(int argc, char** argv) {
         for (int i = 1; i < argc; ++i) {
             const std::string_view arg = argv[i];
             if (arg == "--help") {
-                std::cout << "RPGGame [--backend d3d12|auto|dawn]\nEscape: quit; F11: fullscreen\n";
+                std::cout << "RPGGame [--backend d3d12|auto]\nEscape: quit; F11: fullscreen\n";
                 return 0;
             }
             if (arg != "--backend" || ++i >= argc)
-                throw std::invalid_argument("Use --backend d3d12|auto|dawn");
+                throw std::invalid_argument("Use --backend d3d12|auto");
             const std::string_view backend = argv[i];
             if (backend == "d3d12") settings.backend = engine::DesktopBackend::Direct3D12;
             else if (backend == "auto") settings.backend = engine::DesktopBackend::Automatic;
-            else if (backend == "dawn") settings.backend = engine::DesktopBackend::Dawn;
             else throw std::invalid_argument("Unknown renderer backend");
         }
         engine::DesktopHost host(settings);

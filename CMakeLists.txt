@@ -16,7 +16,7 @@ endif()
 set(BUILD_TESTING OFF CACHE BOOL "Build dependency tests")
 set(WEBENGINE_BUILD_WINDOWS ON CACHE BOOL "Native Windows host" FORCE)
 set(WEBENGINE_WINDOWS_D3D12 ON CACHE BOOL "Native D3D12 renderer" FORCE)
-set(WEBENGINE_WINDOWS_DAWN ON CACHE BOOL "Dawn Windows fallback renderers")
+set(WEBENGINE_WINDOWS_DAWN OFF CACHE BOOL "Use the native D3D12 renderer only" FORCE)
 add_subdirectory(external/WebEngine build-engine EXCLUDE_FROM_ALL)
 
 add_executable(rpg_game src/main.cpp src/game_scene.cpp)
