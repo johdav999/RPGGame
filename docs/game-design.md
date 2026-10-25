@@ -82,8 +82,11 @@ new interactions. Final level caps and perk counts follow the first-island tests
 
 ## 4. Movement and camera
 
-Use an over-the-shoulder camera with a wider exploration view, optional combat
-lock-on, adjustable distance and collision avoidance. Walking, running, sprinting,
+Use a third-person, over-the-shoulder camera in both exploration and combat,
+with adjustable distance, target framing and collision avoidance. Combat permits
+orbiting and inspecting targets while waiting for a decision, retaining the
+third-person view rather than switching to an overhead tactical camera.
+Walking, running, sprinting,
 jumping and contextual interaction form the initial movement set. Mantling and
 swimming are separate features to prove before building levels that require them.
 
@@ -96,8 +99,9 @@ An accidental fall resets the player to a nearby safe position with clear feedba
 | Move and look | WASD and mouse |
 | Sprint and jump | Shift and Space |
 | Interact | E |
-| Light attack and guard | Left and right mouse |
-| Heavy attack and dodge | Hold left mouse and Ctrl |
+| Select and confirm combat action | Left mouse and action bar |
+| Cancel action preview | Right mouse |
+| End combat turn | Explicit End Turn button |
 | Ability slots | 1, 2 and 3 |
 | Lock-on | Middle mouse |
 | Journal, map and inventory | J, M and I |
@@ -110,22 +114,37 @@ keyboard/mouse interaction is stable.
 
 ## 5. Combat
 
-Use deliberate real-time combat with readable windups, short engagements and
-positioning. Begin with sword/shield and one hostile creature. Add ranged weapons
-and additional weapon families after the basic exchange feels responsive.
+Combat is turn-based. Exploration uses free movement; entering an encounter
+establishes participants and a visible initiative order. Each participant takes
+one turn per round. There is no decision timer or reflex-based attack input.
+Begin with sword/shield and one hostile creature, then add ranged weapons and
+additional weapon families after the basic exchange is clear and satisfying.
 
-Health measures injury, stamina funds physical exertion and coherence funds
-Lattice manipulation. Light attacks pressure an opponent; heavy attacks punish
-openings; guard trades stamina for protection; dodge trades stamina for position.
-A broken guard creates a brief opening. Attack buffering and cancellation windows
-must be consistent and tested, rather than tied to variable frame rate.
+Prototype each turn with two action points and one movement allowance. A normal
+attack, Guard, item use or paid ability costs one action point; a heavy attack
+costs two. Movement may be split around actions within the remaining allowance.
+Preview reachable positions, path, target, cost and line of sight before
+confirmation. Invalid commands consume nothing. End Turn forfeits unused points;
+points and movement reset at the next turn. Initiative ties use stable ordering.
 
-Normal attacks use physical contact and defined damage rules, not hidden hit-chance
+Guard lasts until the start of the actor's next turn. Deflect is a prepared
+reaction against the next eligible attack before that boundary, with no timing
+window. The enemy follows the same action economy. Encounter exit returns to
+exploration after victory, surrender or a successful retreat to a marked escape
+area. These action-point values are provisional balance settings.
+
+Health measures injury, stamina supports exploration exertion and coherence funds
+Lattice manipulation. Combat uses action points and movement rather than a
+second stamina cost. Heavy attacks punish exposed targets; Guard reduces incoming
+damage. Repositioning is a movement choice rather than a timed dodge. Animations
+communicate committed results and never determine success through reflex timing.
+
+Normal attacks use validated range, line of sight and defined damage rules, not hidden hit-chance
 rolls. Critical opportunities follow exposed states or positioning. Enemy cues
 use animation, sound and shape, not colour alone. Start with small groups of
 one to three threats so encounter meaning survives without a large combat system.
 
-Healing requires a readable use animation and can be interrupted. Supplies are
+Healing spends an action point and resolves as a committed action. Supplies are
 limited per expedition but replenishable in settlements. Basic stamina recovers
 after exertion; sprinting during a safe journey should not become a repeated wait.
 
@@ -146,13 +165,17 @@ abilities explicitly; required progression always has an available supported pat
 | Ability | Player action | Limit | Initial prototype cost |
 | --- | --- | --- | --- |
 | Attune | Reveal nearby Lattice links, stored traces and supported interaction points | Short range; reveals authored evidence, not every hidden object | Free; a short pulse with a brief reuse delay |
-| Deflect | Bias one incoming attack away from a damaging outcome | Short timing window; cannot erase explosions or environmental hazards | 20 coherence |
+| Deflect | Prepare protection against the next eligible incoming attack | Expires at the next own turn; cannot erase explosions or environmental hazards | 1 action point and 20 coherence |
 | Threadstep | Move to a visible authored anchor across a short gap | Valid supported landing only; no passing through arbitrary walls | 30 coherence |
 | Knit | Accelerate limited tissue recovery | Out of immediate danger; no resurrection or removal of every condition | Later ability, cost to be tested |
 | Anchor | Hold one unstable mechanism in a supported state | A marked target for a limited duration | Later ability, cost to be tested |
 
-Prototype with 100 coherence. Recover 10 per second after four seconds without
-casting; strong or weak resonance initially changes paid costs by a factor of
+Prototype with 100 coherence. Outside combat recover 10 per second after four
+seconds without casting. During combat recover 10 at the start of each own turn;
+waiting in menus never restores resources. Combat cooldowns and status durations
+use explicit turn boundaries. Attune costs one action point in combat but remains
+free of coherence cost; Threadstep costs one action point plus coherence.
+Strong or weak resonance initially changes paid costs by a factor of
 0.8 or 1.25. Round costs upward and display the final cost before activation.
 These values are deliberately provisional.
 
@@ -326,10 +349,13 @@ separate volume controls and hold/toggle alternatives. Screen shake, motion blur
 flashing and Fracture distortion must be reducible. Important danger uses sound
 and visible shapes; important speech always has text.
 
-Offer adjustable combat damage, timing assistance and navigation hints. Changing
+Offer adjustable combat damage, action previews and navigation hints. Changing
 these settings does not lock story endings or label a save as inferior.
 
 ## 14. Visual design
+
+See the [generated game reference](art/game-reference.md) for a third-person
+turn-based encounter above Greywake harbour.
 
 Use grounded maritime fantasy with readable shapes and selective detail. Human
 spaces use timber, limewash, rope, canvas, bronze, stone and weathered iron.

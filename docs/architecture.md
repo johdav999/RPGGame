@@ -13,7 +13,8 @@ below are planned unless explicitly listed as implemented.
 | Initial platform | Windows x64, C++20, MSVC, CMake and WebEngine's native desktop host |
 | Renderer | Direct D3D12 through `WebEngine::Desktop`; renderer internals remain engine owned |
 | Initial game mode | Single-player, offline play with local saves |
-| Initial camera | Third-person exploration camera; this is a starting design choice |
+| Camera | Third-person view during exploration and turn-based combat |
+| Combat | Turn-based encounters with explicit initiative, action points and movement allowance |
 | World scale | Thousands of catalogued islands, with a bounded playable area loaded at a time |
 | Content model | Authored locations and stories, reusable prefabs, seeded variation where appropriate |
 | Quantum fantasy | Explicit gameplay rules for coherence, probability distance and resonance |
@@ -131,7 +132,7 @@ scheduler from a host frame callback.
 | Before host step, at an idle boundary | Publish validated completed loads, update static-region interest and commit prepared scene operations |
 | Input callback | Translate the engine input snapshot into bounded commands, respecting GUI ownership and input cancellation |
 | Simulation callback and scene update | Resolve session commands, narrative timers and non-physics game rules using simulation time |
-| Scene fixed updates | Apply character, ship and combat motion through the engine's existing fixed-step component/physics contracts |
+| Scene fixed updates | Apply exploration/ship motion and presentation of committed combat movement through engine physics contracts |
 | After simulation | Read authoritative results, collect interactions and stage the next effects/state changes |
 | Presentation | Update camera, HUD, audio and cosmetic effects from committed state and interpolated poses |
 
@@ -206,6 +207,18 @@ such as arrival or a story milestone. Avoid ticking thousands of unseen islands
 or promising a fully simulated global economy in the first release.
 
 ## 9. Characters, combat and interaction
+
+Combat has a session-owned encounter controller with explicit round, initiative,
+active participant, action-point and movement state. Only the active participant
+may issue an action; prepared reactions resolve at defined boundaries. Validate
+range, path, collision and costs before committing a result once. Animation
+completion can unlock the next input but cannot apply damage a second time.
+Combat resources, cooldowns and statuses advance by turns, not wall time or
+render frames. Unrelated exploration AI cannot attack during decision waits.
+The third-person camera remains independently inspectable while decisions wait.
+Encounter entry/exit and interruption must restore exploration input and AI
+ownership explicitly. Saves at supported boundaries record encounter state or
+reject saving clearly according to the design's safe-save policy.
 
 Character definitions specify attributes, equipment, locomotion, affiliations,
 abilities and behavior references. Character instances store health, progression,
@@ -412,7 +425,7 @@ or generated assets.
 
 ## 17. Decisions to revisit
 
-Confirm combat pacing/control style, ship-control depth, minimum hardware,
+Refine turn-based combat balance, ship-control depth, minimum hardware,
 accessibility requirements and how much travel must be seamless through playtests.
 Decide when authored content warrants a dedicated content compiler and whether
 approved binary assets should use Git LFS or a separate content store. Introduce
