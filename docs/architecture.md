@@ -53,6 +53,20 @@ size limit on that path.
 
 ## 3. Dependency boundaries
 
+### Planned reusable RPG library
+
+Generic character/resource state, inventory/equipment transactions, ability/status
+mechanisms, turn-based encounter execution and RPG snapshots will live in the
+optional WebEngine RPG library. A separately optional bridge will reuse the
+existing quest kernel. These are planned targets, not functionality delivered in
+the current engine pin. [RPG library integration](rpg-library-integration.md) maps
+the shared library to this game's modules and links the engine architecture and
+ten release prompts. GameSession remains the composition owner; Lattice rules,
+combat balance, campaign/world policy and third-person presentation remain here.
+
+The module table below describes game responsibilities and adapters around those
+shared mechanisms; it is not an instruction to duplicate the generic kernels.
+
 ```mermaid
 flowchart TD
     Host[Windows host and application composition] --> Session[GameSession]

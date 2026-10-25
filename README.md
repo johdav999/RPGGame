@@ -6,6 +6,9 @@ set across an archipelago shaped by ancient technology and unstable reality.
 Technical design: [Game architecture](docs/architecture.md), including system
 boundaries, world streaming, Lattice rules, persistence and delivery stages.
 
+Shared-library plan: [WebEngine RPG integration](docs/rpg-library-integration.md),
+separating reusable RPG mechanisms from Shattered Sea rules and content.
+
 Playable design: [Game design document](docs/game-design.md), covering player
 experience, mechanics, progression, art direction and the Greywake opening slice.
 
