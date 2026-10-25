@@ -1,5 +1,8 @@
 # RPGGame repository guidance
 
+- Read `docs/architecture.md` before changing system boundaries, ownership,
+  gameplay execution, world loading or persistence. Keep its implemented/planned
+  status accurate as the game develops.
 - This is a 3D Windows desktop RPG using the pinned `external/WebEngine` submodule.
 - Link the engine's public CMake targets. Keep gameplay, content and save policy
   here; do not copy private renderer or platform implementation files.
