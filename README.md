@@ -1,5 +1,8 @@
 # RPGGame
 
+Game concept: [The Shattered Sea](docs/game-concept.md), a quantum-fantasy RPG
+set across an archipelago shaped by ancient technology and unstable reality.
+
 A C++20 foundation for a **3D RPG on Windows x64**, using
 [WebEngine](https://github.com/johdav999/WebEngine)'s native desktop runtime and
 renderer. The engine is a pinned Git submodule, not a copied renderer or browser
