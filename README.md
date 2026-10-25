@@ -6,6 +6,9 @@ set across an archipelago shaped by ancient technology and unstable reality.
 Technical design: [Game architecture](docs/architecture.md), including system
 boundaries, world streaming, Lattice rules, persistence and delivery stages.
 
+Playable design: [Game design document](docs/game-design.md), covering player
+experience, mechanics, progression, art direction and the Greywake opening slice.
+
 A C++20 foundation for a **3D RPG on Windows x64**, using
 [WebEngine](https://github.com/johdav999/WebEngine)'s native desktop runtime and
 renderer. The engine is a pinned Git submodule, not a copied renderer or browser
