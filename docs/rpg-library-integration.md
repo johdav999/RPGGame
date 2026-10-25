@@ -1,8 +1,15 @@
 # Planned WebEngine RPG library integration
 
-The reusable RPG library is planned in WebEngine, following its optional Modules
-and Quests SDK pattern. This document records RPGGame's boundary; it does not add
-runtime functionality or change the currently pinned engine revision.
+WebEngine delivers the reusable RPG library following its optional Modules and
+Quests SDK pattern. Adoption in RPGGame remains planned; this document does not
+add runtime functionality or change the currently pinned engine revision.
+
+R10 delivers API 1.7.0 / snapshot wire 1, a complete second standalone ruleset and
+browser/Windows sample hosts. Read the [release audit](https://github.com/johdav999/WebEngine/blob/main/docs/rpg-release-1.md),
+[release evidence](https://github.com/johdav999/WebEngine/blob/main/docs/rpg-r10-validation.md)
+and [adoption mapping](https://github.com/johdav999/WebEngine/blob/main/docs/rpg-game-adoption.md).
+Rendered CI gates remain open. This game stays pinned to
+`56080eca124c9a62e15b146799a8004bdad5a9b2` pending a separate adoption task.
 
 Authoritative engine documents:
 
@@ -28,9 +35,10 @@ chosen rules or content into the engine.
 
 ## Planned composition
 
-`GameSession` will own an `engine::rpg` runtime, an existing quest runtime and the
-game's campaign/world state. It will retain immutable catalogues and compiled
-game-policy registrations for their full lifetime. `WebEngine::RPG` is a proposed
+`GameSession` will own an `engine::rpg::quest_bridge::Coordinator` containing both
+kernels and the game's campaign/world state, with one owner thread and no exposed
+mutable kernel references. It will retain immutable catalogues and compiled
+game-policy registrations for their full lifetime. `WebEngine::RPG` is the delivered
 portable target; `WebEngine::RPGQuests` is its separately optional quest bridge.
 These targets do not yet exist in the pinned engine.
 
@@ -57,3 +65,11 @@ Linux cloud and Windows tests with game-specific policies and save/reward cases.
 Do not copy engine sources or introduce a second scheduler. The first adoption
 slice should prove one character, inventory, encounter and quest award in Greywake;
 world-scale content and full campaign production follow separately.
+
+Enable RPG, Quests and RPGQuests at the engine root and link public targets from
+the portable game rules target; do not add duplicate engine subdirectories.
+Keep DesktopHost/Application frame ownership and the existing camera view setup.
+Cloud validation remains `bash scripts/check-cloud.sh` after setup when needed;
+extend shared tests with Lattice rules, failed rewards and combined save/restore.
+Run the game's Windows Release build and record D3D12/input acceptance separately.
+Engine sample evidence does not establish acceptance of the game's future adapter.

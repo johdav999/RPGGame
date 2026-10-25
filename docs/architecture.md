@@ -55,6 +55,10 @@ size limit on that path.
 
 ### Planned reusable RPG library
 
+WebEngine R10 now provides the API 1.7.0 release candidate and adoption mapping.
+Rendered CI release gates remain open; this game's adoption is still planned and
+its engine pin is unchanged. See [integration status](rpg-library-integration.md).
+
 Generic character/resource state, inventory/equipment transactions, ability/status
 mechanisms, turn-based encounter execution and RPG snapshots will live in the
 optional WebEngine RPG library. A separately optional bridge will reuse the
