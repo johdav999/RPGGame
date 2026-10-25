@@ -13,5 +13,13 @@
   environment and must never be embedded in the runtime, committed or logged.
 - Run `python -m unittest discover -s tests -v` for asset-tool changes and a
   Windows Release build for C++/CMake changes. Record GPU/runtime checks separately.
+- In Linux/Codex cloud, first run `bash scripts/setup-cloud.sh` if the environment
+  is unprepared, then use `bash scripts/check-cloud.sh` for task validation.
+  See `docs/codex-cloud.md` for prerequisites and environment preparation.
+  Cloud tests compile the shared game scene without the Windows renderer;
+  use Windows CI for the desktop build and report GPU checks as unverified.
+- Keep portable scene/game code in shared targets. `RPG_BUILD_DESKTOP` controls
+  native Windows composition; `RPG_BUILD_TESTS` controls game tests independently
+  of the engine's `BUILD_TESTING`. Do not enable paid generation in setup or CI.
 - Generated content requires scale/material/complexity and usage-rights review
   before moving from ignored `assets/generated` into versioned asset directories.

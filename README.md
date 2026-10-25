@@ -42,6 +42,15 @@ The build stages SDL and DXC DLLs and assets beside the executable. This is a
 development build; a redistributable installer, dependency-license bundle,
 publisher signing and clean-machine validation still need a release workflow.
 
+## Codex cloud tasks
+
+The repository also supports Linux headless development. Prepare a Codex cloud
+environment with `bash scripts/setup-cloud.sh`, then run
+`bash scripts/check-cloud.sh` inside tasks. This compiles the shared game scene
+and tests its lifecycle without a GPU. See [cloud setup](docs/codex-cloud.md) for
+prerequisites, network access and the environment publishing step. The playable
+Windows renderer continues to be checked by Windows CI and local GPU testing.
+
 ## ElevenLabs audio and Tripo 3D
 
 Python authoring tools generate local assets ahead of time. The game contains no

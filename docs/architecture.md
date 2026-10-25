@@ -36,6 +36,12 @@ The repository currently contains:
   player and landmark placeholders.
 - Windows setup scripts, CMake presets and a GitHub Actions build with an
   executable `--help` check.
+- A shared `rpg_scene` target linked by both the Windows game and headless C++
+  integration tests. Linux cloud setup and CI compile this scene and test camera
+  resolution, scene collection, pause/resume, replacement and shutdown without
+  a renderer. `RPG_BUILD_DESKTOP` selects Windows composition, while
+  `RPG_BUILD_TESTS` independently enables game tests; engine tests stay disabled.
+  See [Codex cloud setup](codex-cloud.md) for environment preparation.
 - Python authoring clients for ElevenLabs speech and Tripo text-to-GLB generation,
   with offline tests, dry runs and environment-based credentials.
 

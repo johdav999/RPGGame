@@ -7,10 +7,34 @@
     "generator": "Visual Studio 17 2022",
     "architecture": "x64",
     "binaryDir": "${sourceDir}/build/windows",
-    "cacheVariables": { "BUILD_TESTING": "OFF" }
+    "cacheVariables": { "BUILD_TESTING": "OFF", "RPG_BUILD_DESKTOP": "ON" }
+  }, {
+    "name": "cloud",
+    "displayName": "Linux headless game validation",
+    "generator": "Ninja",
+    "binaryDir": "${sourceDir}/build/cloud",
+    "cacheVariables": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "BUILD_TESTING": "OFF",
+      "RPG_BUILD_DESKTOP": "OFF",
+      "RPG_BUILD_TESTS": "ON"
+    }
   }],
   "buildPresets": [{
     "name": "windows-release", "configurePreset": "windows",
-    "configuration": "Release", "targets": ["rpg_game"]
+    "configuration": "Release", "targets": ["rpg_game", "rpg_headless_tests"]
+  }, {
+    "name": "cloud", "configurePreset": "cloud",
+    "targets": ["rpg_headless_tests"]
+  }],
+  "testPresets": [{
+    "name": "cloud", "configurePreset": "cloud",
+    "output": { "outputOnFailure": true },
+    "execution": { "noTestsAction": "error" }
+  }, {
+    "name": "windows-release", "configurePreset": "windows",
+    "configuration": "Release",
+    "output": { "outputOnFailure": true },
+    "execution": { "noTestsAction": "error" }
   }]
 }
